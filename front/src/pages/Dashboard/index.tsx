@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Header from './Header';
 import routes from './router';
 import { DashboardContext } from './context';
+import DynamicBackground from 'components/DynamicBackground';
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState('Home');
@@ -19,12 +20,16 @@ const Dashboard = () => {
 
   return (
     <DashboardContext.Provider value={contextValue}>
-      <div>
-        <Header />
+      <div className='flex flex-col w-full h-screen items-center justify-center'>
+        <DynamicBackground />
 
-        {Page && <Page />}
+        <div className='w-5/6 h-screen'>
+          <Header />
 
-        <Footer />
+          {Page && <Page />}
+
+          <Footer />
+        </div>
       </div>
     </DashboardContext.Provider>
   );

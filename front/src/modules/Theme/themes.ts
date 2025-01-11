@@ -1,7 +1,7 @@
 const themes = [
   {
     default: {
-      primary: '#00C8DA',
+      primary: '#009fda',
       'primary-content': '#002D31',
 
       secondary: '#00DA4C',

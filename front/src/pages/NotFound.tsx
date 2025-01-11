@@ -23,7 +23,7 @@ const NotFound = () => {
           onClick={() => {
             navigate('/');
           }}
-          className='border-none p-0 mt-2 hover:text-secondary'
+          className='border-none p-0 mt-2 hover:text-secondary hover:bg-base-100'
         />
       </div>
     </div>

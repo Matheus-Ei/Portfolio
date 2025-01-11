@@ -1,63 +1,45 @@
 const themes = [
   {
     default: {
-      primary: '#1c1917',
-      'primary-content': '#ffffff',
-      secondary: '#ffffff',
+      primary: '#00C8DA',
+      'primary-content': '#002D31',
 
-      accent: '#6b7280',
-      neutral: '#6b7280',
+      secondary: '#00DA4C',
+      'secondary-content': '#063100',
 
-      'base-100': '#ffffff',
+      accent: '#00F4F4',
+      'accent-content': '#001616',
 
-      info: '#60a5fa',
-      success: '#84cc16',
-      warning: '#eab308',
-      error: '#dc2626',
+      neutral: '#001636',
+      'neutral-content': '#C0DAFF',
 
-      '--rounded-box': '1rem', // Used in card and other large boxes
-      '--rounded-btn': '0.5rem', // Border radius rounded-btn utility class
-      '--rounded-badge': '1.9rem', // Used in badges and similar
+      'base-100': '#000719',
+      'base-200': '#00182E',
+      'base-300': '#002344',
+      'base-content': '#CDDBFF',
 
-      '--animation-btn': '0.25s', // Duration of animation when you click on button
-      '--animation-input': '0.2s', // Duration of animation for inputs like checkbox, toggle, radio, etc
+      info: '#AF00B1',
+      'info-content': '#F4BBFF',
 
-      '--btn-focus-scale': '0.95', // Scale transform of button when you focus on it
+      success: '#18B100',
+      'success-content': '#BBFFBE',
+
+      warning: '#B19E00',
+      'warning-content': '#FFFEBB',
+
+      error: '#B1000A',
+      'error-content': '#FFBBBF',
+
+      '--rounded-box': '1rem',
+      '--rounded-btn': '0.5rem',
+      '--rounded-badge': '1.9rem',
+
+      '--animation-btn': '0.25s',
+      '--animation-input': '0.2s',
+
+      '--btn-focus-scale': '0.95',
     },
   },
-
-  'light',
-  'dark',
-  'cupcake',
-  'bumblebee',
-  'emerald',
-  'corporate',
-  'synthwave',
-  'retro',
-  'cyberpunk',
-  'valentine',
-  'halloween',
-  'garden',
-  'forest',
-  'aqua',
-  'lofi',
-  'pastel',
-  'fantasy',
-  'wireframe',
-  'black',
-  'luxury',
-  'dracula',
-  'cmyk',
-  'autumn',
-  'business',
-  'acid',
-  'lemonade',
-  'night',
-  'coffee',
-  'winter',
-  'dim',
-  'nord',
-  'sunset',
 ];
 
 export default themes;

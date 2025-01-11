@@ -6,9 +6,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 // Local
-import './database/associations';
 import mainRoutes from './system/routes';
-import auth from './middlewares/auth';
 
 export class App {
   private app: any;
@@ -39,8 +37,6 @@ export class App {
         credentials: true,
       }),
     );
-
-    this.app.use(auth);
   }
 
   public listen(port: number) {

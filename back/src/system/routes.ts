@@ -1,8 +1,8 @@
 // Routes
-import routeEx from '../routes/route';
+import projectRoute from '../routes/project';
 
 type MainRoutesType = Array<[String, Object]>;
 
-const mainRoutes: MainRoutesType = [['/', routeEx.router]];
+const mainRoutes: MainRoutesType = [['/project', projectRoute.router]];
 
 export default mainRoutes;

@@ -4,7 +4,7 @@
 import { Router } from 'express';
 
 // Local
-import controller from '../controllers/controller';
+import projectController from '../controllers/project';
 
 class RouteEx {
   public router: Router;
@@ -15,7 +15,8 @@ class RouteEx {
   }
 
   private init() {
-    this.router.get('/', controller.method);
+    this.router.get('/', projectController.getAll);
+    this.router.get('/:id', projectController.get);
   }
 }
 

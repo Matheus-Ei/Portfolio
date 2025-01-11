@@ -1,0 +1,2 @@
+-- Script to insert data into the database
+-- For examples and tests

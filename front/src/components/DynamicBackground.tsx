@@ -70,7 +70,7 @@ const DynamicBackground: React.FC = () => {
   };
 
   return (
-    <div className='absolute w-screen h-screen bg-cover'>
+    <div className='fixed w-screen h-screen bg-cover'>
       <svg className='w-screen h-screen z-0'>
         <g>{renderCircles()}</g>
       </svg>

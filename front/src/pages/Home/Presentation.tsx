@@ -1,18 +1,28 @@
+// Library
+import { motion } from 'framer-motion';
 // Local
 import developerImage from 'assets/developer.webp';
 
 const Presentation = () => {
   return (
-    <div className='flex flex-col md:flex-row items-center justify-center mt-10 w-5/6 xl:w-4/6 2xl:w-3/6 gap-8 lg:gap-16'>
-      <img
+    <div className='flex flex-col md:flex-row items-center justify-center w-full gap-8 lg:gap-16'>
+      <motion.img
         src={developerImage}
-        className='w-full md:w-2/6 rounded-box border-2 border-primary'
+        alt='DeveloperImg'
+        className='w-full md:w-2/6 border-2 select-none'
+        animate={{
+          borderColor: ['#00DA4C', '#009FDA'],
+          borderRadius: [300, 20],
+          transition: { duration: 1, delay: 1 },
+        }}
       />
 
       <div className='flex flex-col items-center md:items-start justify-center w-full md:w-4/6 gap-y-4'>
-        <h1 className='text-7xl font-bold w-full md:w-fit'>Welcome</h1>
+        <h1 className='text-7xl font-bold w-full md:w-fit select-none text-center md:text-start'>
+          Welcome
+        </h1>
 
-        <p className='text-lg w-full'>
+        <p className='text-lg w-full select-none text-center md:text-start'>
           Hi! I’m Matheus Eickhoff, a full-stack developer and Computer Science
           student at Unochapecó. I have experience with technologies like
           ReactJS, TypeScript, Node.js, Python, Docker, SQL, Git, and Figma.

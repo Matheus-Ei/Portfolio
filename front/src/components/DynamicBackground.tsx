@@ -9,11 +9,7 @@ const DynamicBackground: React.FC = () => {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      let timeout: NodeJS.Timeout = setTimeout(() => { }, 0);
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        setMousePosition({ x: e.clientX, y: e.clientY });
-      }, 100);
+      setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -26,10 +22,7 @@ const DynamicBackground: React.FC = () => {
   const renderCircles = () => {
     const circles = [];
 
-    // if window.innerWidth is less than 1000, return null
-    // if window.innerHeight is less than 1000, return null
-
-    if (window.innerWidth < 1000 ) {
+    if (window.innerWidth < 1000 || window.innerHeight < 500) {
       return null;
     }
 

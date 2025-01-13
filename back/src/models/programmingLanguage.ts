@@ -3,16 +3,13 @@ import { DataTypes, Model } from 'sequelize';
 
 // Local
 import connection from '../database/connection';
-import ProjectModel from './project';
 
 class ProgrammingLanguageModel extends Model {
   public id!: number;
 
   public name!: string;
   public description!: string;
-  public logo!: Buffer;
-
-  public project_id!: number;
+  public logo!: string;
 }
 
 ProgrammingLanguageModel.init(
@@ -32,15 +29,7 @@ ProgrammingLanguageModel.init(
     },
 
     logo: {
-      type: DataTypes.BLOB,
-    },
-
-    project_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: ProjectModel,
-        key: 'id',
-      },
+      type: DataTypes.TEXT,
     },
   },
   {

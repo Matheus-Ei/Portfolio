@@ -1,12 +1,10 @@
-// The router for some specific endpoint
-
 // Librareis
 import { Router } from 'express';
 
 // Local
 import projectController from '../controllers/project';
 
-class RouteEx {
+class ProjectRouter {
   public router: Router;
 
   constructor() {
@@ -17,7 +15,8 @@ class RouteEx {
   private init() {
     this.router.get('/', projectController.getAll);
     this.router.get('/:id', projectController.get);
+    this.router.post('/', projectController.create);
   }
 }
 
-export default new RouteEx();
+export default new ProjectRouter();

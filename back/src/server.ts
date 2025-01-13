@@ -26,7 +26,7 @@ export class App {
 
   private middlewares(): void {
     this.app.use(cookieParser());
-    this.app.use(express.json());
+    this.app.use(express.json({ limit: '150mb' }));
     this.app.use(compression());
 
     this.app.use(

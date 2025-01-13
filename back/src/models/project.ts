@@ -7,7 +7,7 @@ import connection from '../database/connection';
 class ProjectModel extends Model {
   public id!: number;
 
-  public logo!: Buffer;
+  public logo!: string;
   public title!: string;
   public description!: string;
 
@@ -27,7 +27,7 @@ ProjectModel.init(
     },
 
     logo: {
-      type: DataTypes.BLOB,
+      type: DataTypes.TEXT,
     },
 
     title: {

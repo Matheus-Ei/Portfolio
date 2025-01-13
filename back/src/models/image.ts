@@ -8,9 +8,7 @@ import ProjectModel from './project';
 class ImageModel extends Model {
   public id!: number;
 
-  public title!: string;
-  public description!: string;
-  public data!: Buffer;
+  public data!: string;
 
   public project_id!: number;
 }
@@ -23,16 +21,8 @@ ImageModel.init(
       primaryKey: true,
     },
 
-    title: {
-      type: DataTypes.STRING(255),
-    },
-
-    description: {
-      type: DataTypes.TEXT,
-    },
-
     data: {
-      type: DataTypes.BLOB,
+      type: DataTypes.TEXT,
     },
 
     project_id: {

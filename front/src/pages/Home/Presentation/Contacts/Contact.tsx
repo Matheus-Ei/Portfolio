@@ -26,6 +26,8 @@ const Contact = ({ contact }: ItemProps) => {
       className='flex items-center justify-start hover:text-primary'
       whileHover={{ scale: 1.1 }}
       whileTap={{ opacity: 0.8 }}
+      initial={{ scale: 1.5 }}
+      animate={{ scale: 1 }}
     >
       <Icon value={contact.icon} onClick={openLink} className='text-4xl' />
     </motion.div>

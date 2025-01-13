@@ -1,21 +1,27 @@
 // Library
 import { motion } from 'framer-motion';
+
 // Local
-import developerImage from 'assets/developer.webp';
+import developerImage from 'assets/developer.jpg'
+import Contacts from './Contacts';
 
 const Presentation = () => {
   return (
     <div className='flex flex-col md:flex-row items-center justify-center w-full gap-8 lg:gap-16'>
-      <motion.img
-        src={developerImage}
-        alt='DeveloperImg'
-        className='w-full md:w-2/6 border-2 select-none'
-        animate={{
-          borderColor: ['#00DA4C', '#009FDA'],
-          borderRadius: [300, 20],
-          transition: { duration: 1, delay: 1 },
-        }}
-      />
+      <div className='w-full md:w-2/6 xl:w-3/12 select-none flex flex-col items-center gap-y-4'>
+        <motion.img
+          src={developerImage}
+          alt='DeveloperImg'
+          className='w-full border-2'
+          animate={{
+            borderColor: ['#00DA4C', '#009FDA'],
+            borderRadius: [300, 20],
+            transition: { duration: 1, delay: 1 },
+          }}
+        />
+
+        <Contacts />
+      </div>
 
       <div className='flex flex-col items-center md:items-start justify-center w-full md:w-4/6 gap-y-4'>
         <h1 className='text-7xl font-bold w-full md:w-fit select-none text-center md:text-start'>

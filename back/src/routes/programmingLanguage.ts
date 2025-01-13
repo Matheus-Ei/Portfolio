@@ -14,6 +14,7 @@ class ProgrammingLanguageRoute {
 
   private init() {
     this.router.post('/', programmingLanguageController.create);
+    this.router.get('/', programmingLanguageController.getAll);
   }
 }
 

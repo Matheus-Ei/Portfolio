@@ -5,7 +5,7 @@ import Image from './Image';
 interface ProjectProps {
   title: string;
   description: string;
-  logo: any;
+  logo: string;
 }
 
 const Project = ({ title, description, logo }: ProjectProps) => {
@@ -14,6 +14,8 @@ const Project = ({ title, description, logo }: ProjectProps) => {
       className='flex flex-col bg-primary text-primary-content min-w-52 max-w-80 h-96 rounded-box border-2 border-base-300 p-2 select-none cursor-pointer'
       whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
       whileTap={{ opacity: 0.9, transition: { duration: 0.1 } }}
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
     >
       <Image src={logo} alt='Icon' />
 

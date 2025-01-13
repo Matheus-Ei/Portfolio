@@ -1,5 +1,6 @@
 // Libraries
 import { Request, Response } from 'express';
+import dotenv from 'dotenv';
 
 // Models
 import ProjectModel from '../models/project';
@@ -66,6 +67,7 @@ class ProjectController {
       title,
       description,
       start_date,
+      password,
       images = [],
       programming_languages = [],
       host_link = null,
@@ -75,8 +77,15 @@ class ProjectController {
 
     if (!logo || !title || !description || !start_date) {
       res
-        .status(401)
+        .status(400)
         .send({ message: "Required fields in the body weren't sent" });
+      return;
+    }
+
+    dotenv.config();
+
+    if (password == process.env.PASSWORD) {
+      res.status(401).send({ message: 'Password incorrect' });
       return;
     }
 

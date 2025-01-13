@@ -1,5 +1,5 @@
 interface ImageProps {
-  src: any;
+  src: string;
   alt: string;
 }
 

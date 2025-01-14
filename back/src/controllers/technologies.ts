@@ -3,10 +3,10 @@ import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
 // Local
-import ProgrammingLanguageModel from '../models/programmingLanguage';
+import TechnologiesModel from '../models/technologies';
 
-class ProgrammingLanguageController {
-  public async create(req: Request, res: Response) {
+class TechnologiesController {
+  public async add(req: Request, res: Response) {
     const { name, description, logo, password } = req.body;
 
     if (!name || !description || !logo) {
@@ -17,13 +17,13 @@ class ProgrammingLanguageController {
     }
 
     dotenv.config();
-    if (password !== process.env.PASSWORD) {
+    if (password != process.env.PASSWORD) {
       res.status(401).send({ message: 'Password incorrect' });
       return;
     }
 
     try {
-      const lang = await ProgrammingLanguageModel.create({
+      const lang = await TechnologiesModel.create({
         name,
         description,
         logo,
@@ -42,10 +42,11 @@ class ProgrammingLanguageController {
 
   public async getAll(req: Request, res: Response) {
     try {
-      const lang = await ProgrammingLanguageModel.findAll();
+      const tech = await TechnologiesModel.findAll();
+
       res.status(200).send({
         message: 'Here are all programming languages',
-        data: lang,
+        data: tech,
       });
     } catch (error) {
       res
@@ -55,4 +56,4 @@ class ProgrammingLanguageController {
   }
 }
 
-export default new ProgrammingLanguageController();
+export default new TechnologiesController();

@@ -1,5 +1,7 @@
-// Local
+// Library
 import { useQuery } from 'react-query';
+
+// Local
 import Project from './Project';
 import { ProjectType } from 'services/project/types';
 import ProjectService from 'services/project';
@@ -11,6 +13,7 @@ const Projects = () => {
 
   const addProject = (project: ProjectType) => (
     <Project
+      id={project.id}
       title={project.title}
       key={project.title}
       description={project.description}
@@ -19,7 +22,7 @@ const Projects = () => {
   );
 
   const renderProject = () => {
-    if (!data)
+    if (!data || !data.length)
       return (
         <div className='flex justify-center gap-4 h-64 w-full mt-4'>
           <Icon

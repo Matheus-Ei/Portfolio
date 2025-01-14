@@ -4,7 +4,7 @@ import { DataTypes, Model } from 'sequelize';
 // Local
 import connection from '../database/connection';
 
-class ProgrammingLanguageModel extends Model {
+class TechnologiesModel extends Model {
   public id!: number;
 
   public name!: string;
@@ -12,7 +12,7 @@ class ProgrammingLanguageModel extends Model {
   public logo!: string;
 }
 
-ProgrammingLanguageModel.init(
+TechnologiesModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -34,9 +34,9 @@ ProgrammingLanguageModel.init(
   },
   {
     sequelize: connection,
-    tableName: 'programming_language',
+    tableName: 'technologies',
     timestamps: false,
   },
 );
 
-export default ProgrammingLanguageModel;
+export default TechnologiesModel;

@@ -23,6 +23,7 @@ const Icon = ({ value, className, onClick }: IconsProps) => {
   try {
     const repository: LibsType = library[value.library];
     const RequiredIcon = repository[value.name];
+    if (!RequiredIcon) return <FaQuestion {...props} />;
 
     return <RequiredIcon {...props} />;
   } catch {

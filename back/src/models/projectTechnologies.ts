@@ -4,14 +4,14 @@ import { DataTypes, Model } from 'sequelize';
 // Local
 import connection from '../database/connection';
 import ProjectModel from './project';
-import ProgrammingLanguageModel from './programmingLanguage';
+import TechnologiesModel from './technologies';
 
-class ProjectLanguageModel extends Model {
+class ProjectTechnologiesModel extends Model {
   public project_id!: number;
   public language_id!: number;
 }
 
-ProjectLanguageModel.init(
+ProjectTechnologiesModel.init(
   {
     project_id: {
       type: DataTypes.INTEGER,
@@ -22,20 +22,20 @@ ProjectLanguageModel.init(
       },
     },
 
-    language_id: {
+    tech_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       references: {
-        model: ProgrammingLanguageModel,
+        model: TechnologiesModel,
         key: 'id',
       },
     },
   },
   {
     sequelize: connection,
-    tableName: 'project_language',
+    tableName: 'project_technologies',
     timestamps: false,
   },
 );
 
-export default ProjectLanguageModel;
+export default ProjectTechnologiesModel;

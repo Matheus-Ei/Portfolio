@@ -1,5 +1,9 @@
+// Library
 import { useEffect, useState } from 'react';
+
+// Local
 import AddProject from './AddProject';
+import AddTech from './AddTech';
 
 const Footer = () => {
   const [svgWidth, setSvgWidth] = useState(window.innerWidth);
@@ -32,6 +36,7 @@ const Footer = () => {
         <h1 className='text-lg italic'>Matheus Eickhoff - 2025</h1>
 
         <AddProject />
+        <AddTech />
       </div>
     </div>
   );

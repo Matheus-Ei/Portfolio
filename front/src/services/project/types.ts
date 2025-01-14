@@ -1,11 +1,12 @@
 // Local
-import { ProgrammingLanguageType } from 'services/ProgrammingLanguage/types';
+import { TechnologyType } from 'services/technologies/types';
 
 export interface ProjectType {
-  logo: string;
-  title: string;
-  description: string;
-  start_date: Date;
+  id?: number;
+  logo?: string;
+  title?: string;
+  description?: string;
+  start_date?: Date | null;
   end_date?: Date | null;
   host_link?: string;
   code_link?: string;
@@ -13,5 +14,5 @@ export interface ProjectType {
 
 export interface CompleteProjectType extends ProjectType {
   images?: Array<string>;
-  programming_languages?: Array<ProgrammingLanguageType>;
+  technologies?: Array<TechnologyType>;
 }

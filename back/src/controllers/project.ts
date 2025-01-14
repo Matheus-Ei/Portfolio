@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 
 // Models
 import ProjectModel from '../models/project';
-import ProgrammingLanguageModel from '../models/programmingLanguage';
+import TechnologiesModel from '../models/technologies';
 import ImageModel from '../models/image';
-import ProjectLanguageModel from '../models/projectLanguage';
+import ProjectTechnologiesModel from '../models/projectTechnologies';
 import operations from '../database/operations';
 
 class ProjectController {
@@ -34,18 +34,18 @@ class ProjectController {
         where: { project_id: id },
       });
 
-      const programmingLanguages = await operations.query(`
+      const technologies = await operations.query(`
         SELECT 
-          programming_language.name, 
-          programming_language.description, 
-          programming_language.logo
-        FROM project_language
-        JOIN programming_language 
-          ON programming_language.id = project_language.language_id
-        WHERE project_language.project_id = 4;
+          technologies.name, 
+          technologies.description, 
+          technologies.logo
+        FROM project_technologies
+        JOIN technologies 
+          ON technologies.id = project_technologies.tech_id
+        WHERE project_technologies.project_id = ${id};
       `);
 
-      project?.setDataValue('programmingLanguages', programmingLanguages[0]);
+      project?.setDataValue('technologies', technologies[0]);
       project?.setDataValue(
         'images',
         images.map((image) => image.data),
@@ -69,7 +69,7 @@ class ProjectController {
       start_date,
       password,
       images = [],
-      programming_languages = [],
+      technologies = [],
       host_link = null,
       code_link = null,
       end_date = null,
@@ -84,7 +84,7 @@ class ProjectController {
 
     dotenv.config();
 
-    if (password == process.env.PASSWORD) {
+    if (password != process.env.PASSWORD) {
       res.status(401).send({ message: 'Password incorrect' });
       return;
     }
@@ -104,13 +104,13 @@ class ProjectController {
         await ImageModel.create({ data: image, project_id: project.id });
       });
 
-      programming_languages.forEach(async (lang: string) => {
-        const language = await ProgrammingLanguageModel.findOne({
+      technologies.forEach(async (lang: string) => {
+        const tech = await TechnologiesModel.findOne({
           where: { name: lang },
         });
 
-        await ProjectLanguageModel.create({
-          language_id: language?.id,
+        await ProjectTechnologiesModel.create({
+          tech_id: tech?.id,
           project_id: project.id,
         });
       });

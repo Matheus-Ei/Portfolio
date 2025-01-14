@@ -1,12 +1,12 @@
 // Routes
 import projectRoute from '../routes/project';
-import programmingLanguageRoute from '../routes/programmingLanguage';
+import technologiesRoute from '../routes/technologies';
 
 type MainRoutesType = Array<[String, Object]>;
 
 const mainRoutes: MainRoutesType = [
   ['/project', projectRoute.router],
-  ['/programming-language', programmingLanguageRoute.router],
+  ['/tech', technologiesRoute.router],
 ];
 
 export default mainRoutes;

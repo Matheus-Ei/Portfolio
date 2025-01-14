@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS image (
   CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS programming_language (
+CREATE TABLE IF NOT EXISTS technologies (
   id SERIAL PRIMARY KEY,
 
   logo TEXT NOT NULL,
@@ -29,13 +29,13 @@ CREATE TABLE IF NOT EXISTS programming_language (
   description TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS project_language (
+CREATE TABLE IF NOT EXISTS project_technologies (
   project_id INTEGER NOT NULL,
-  language_id INTEGER NOT NULL,
+  tech_id INTEGER NOT NULL,
 
-  PRIMARY KEY (project_id, language_id),
+  PRIMARY KEY (project_id, tech_id),
 
   CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES project(id) ON DELETE CASCADE,
-  CONSTRAINT fk_language FOREIGN KEY (language_id) REFERENCES programming_language(id) ON DELETE CASCADE
+  CONSTRAINT fk_tech FOREIGN KEY (tech_id) REFERENCES technologies(id) ON DELETE CASCADE
 );
 

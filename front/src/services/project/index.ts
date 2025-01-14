@@ -4,11 +4,12 @@ import { ProjectType } from './types';
 
 interface ProjectInputType extends ProjectType {
   images: Array<string>;
-  programming_languages: Array<string>;
+  technologies: Array<string>;
+  password: string;
 }
 
 class ProjectService {
-  static async get(id: string | number) {
+  static async get(id?: string | number) {
     try {
       const response = await Request.get(`project/${id}`);
       return response.data;
@@ -30,8 +31,8 @@ class ProjectService {
     try {
       await Request.post('project', data);
       return true;
-    } catch {
-      return false;
+    } catch (error) {
+      return error?.message;
     }
   }
 }

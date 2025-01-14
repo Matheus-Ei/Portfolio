@@ -17,7 +17,7 @@ const Calendar = ({
   className,
 }: CalendarProps) => {
   const css = twMerge(
-    'bg-base-300 rounded-btn p-1 pl-2 outline-none text-base-content w-32',
+    'bg-base-200 border border-base-300 rounded-btn p-1 pl-2 outline-none text-base-content w-32',
     className,
   );
 

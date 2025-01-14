@@ -29,7 +29,7 @@ const MultiSelection = ({
       <option
         key={option}
         value={option}
-        className='selected:bg-primary selected:text-primary-content bg-base-300 text-base-content selected:border-none'
+        className='selected:bg-primary selected:text-primary-content bg-base-200 text-base-content selected:border-none'
       >
         {option}
       </option>
@@ -41,7 +41,7 @@ const MultiSelection = ({
       multiple
       value={selected}
       onChange={handleSelectionChange}
-      className='h-32 p-2 rounded-btn text-base-content bg-base-300'
+      className='h-32 p-2 border-2 border-base-300 rounded-btn text-base-content bg-base-200'
     >
       {placeholder && (
         <option value='' disabled>

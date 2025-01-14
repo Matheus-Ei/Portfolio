@@ -25,7 +25,7 @@ const Modal = ({ children, isOpen, onClose, className }: ModalProps) => {
 
   return (
     <Background onClick={onClose}>
-      <Card>
+      <Card className='border-base-300 border-2'>
         <div className={css}>
           <CloseButton onClick={onClose} />
           {children}

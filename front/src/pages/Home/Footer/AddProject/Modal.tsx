@@ -81,13 +81,13 @@ const AddProjectModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
             <div className='flex flex-col items-center justify-center gap-y-4 w-3/4'>
               <Input
                 placeholder='Title...'
-                className='h-12 bg-base-300 m-0'
+                className='h-12 bg-base-200 border-2 border-base-300 m-0'
                 setValue={setTitle}
               />
 
               <Input
                 placeholder='Description...'
-                className='h-48 bg-base-300 m-0'
+                className='h-48 bg-base-200 border-2 border-base-300 m-0'
                 type='textarea'
                 setValue={setDescription}
               />
@@ -108,7 +108,10 @@ const AddProjectModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
 
         <div className='flex items-center justify-center gap-x-4 w-2/5'>
           <Button text='Create' inverse={true} onClick={createProject} />
-          <Input placeholder='Password...' className='h-12 bg-base-300 m-0' />
+          <Input
+            placeholder='Password...'
+            className='h-12 bg-base-200 border-2 border-base-300 m-0'
+          />
         </div>
       </div>
     </Modal>

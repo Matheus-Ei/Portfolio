@@ -16,9 +16,9 @@ const HoverName = ({ tech, show }: HoverNameProps) => {
     <motion.div
       className='absolute bottom-0 z-20'
       initial={{ opacity: 0.2, x: -10 }}
-      animate={{ opacity: 1, x:0 }}
+      animate={{ opacity: 1, x: 0 }}
     >
-      <p className='text-sm text-center'>{tech.name}</p>
+      <p className='text-sm text-center w-full whitespace-nowrap'>{tech.name}</p>
     </motion.div>
   );
 };

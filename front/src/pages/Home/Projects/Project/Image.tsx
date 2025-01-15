@@ -5,14 +5,12 @@ interface ImageProps {
 
 const Image = ({ src, alt }: ImageProps) => {
   return (
-    <div className='relative h-40'>
+    <div className='h-40 mb-4'>
       <img
         src={src}
         alt={alt}
         className='w-full h-full rounded-btn object-cover'
       />
-
-      <div className='absolute inset-0 bg-gradient-to-t from-primary from-20% to-transparent to-80%' />
     </div>
   );
 };

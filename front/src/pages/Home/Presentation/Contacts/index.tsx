@@ -52,7 +52,9 @@ const Contacts = () => {
     createElement(Contact, { key: index, contact });
 
   return (
-    <div className='flex gap-x-6'>{displayContact.map(renderContacts)}</div>
+    <div className='absolute bottom-0 flex gap-x-6'>
+      {displayContact.map(renderContacts)}
+    </div>
   );
 };
 

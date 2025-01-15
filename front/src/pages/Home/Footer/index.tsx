@@ -1,5 +1,6 @@
 // Library
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 // Local
 import AddProject from './AddProject';
@@ -22,7 +23,11 @@ const Footer = () => {
   }, []);
 
   return (
-    <div className='relative flex flex-col bg-base-300 w-screen h-24 items-center select-none'>
+    <motion.div
+      className='relative flex flex-col bg-base-300 w-screen h-24 items-center select-none'
+      initial={{ opacity: 0, y: -40 }}
+      animate={{ opacity: 1, y: 0 }}
+    >
       <svg className='h-10 w-screen'>
         <ellipse
           cx={svgWidth / 2}
@@ -38,7 +43,7 @@ const Footer = () => {
         <AddProject />
         <AddTech />
       </div>
-    </div>
+    </motion.div>
   );
 };
 

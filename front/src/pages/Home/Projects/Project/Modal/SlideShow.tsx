@@ -1,7 +1,10 @@
+// Library
+import { useState } from 'react';
+
 // Local
 import Icon from 'components/Icon';
-import { useState } from 'react';
 import { CompleteProjectType } from 'services/project/types';
+import useToggle from 'hooks/useToggle';
 
 interface SlideShowProps {
   data: CompleteProjectType;
@@ -9,6 +12,7 @@ interface SlideShowProps {
 
 const SlideShow = ({ data }: SlideShowProps) => {
   const [selected, setSelected] = useState<number>(0);
+  const [fullImage, toggleFullImage] = useToggle(false);
 
   const image = data?.images?.filter((img, index) => {
     if (index === selected) return img;
@@ -16,7 +20,7 @@ const SlideShow = ({ data }: SlideShowProps) => {
     return null;
   });
 
-  if (!image) return null;
+  if (!image || !data?.images?.length) return null;
 
   const nextImg = () => {
     setSelected((prev) => {
@@ -40,22 +44,57 @@ const SlideShow = ({ data }: SlideShowProps) => {
     });
   };
 
+  const haveMoreImages = data?.images?.length && data?.images?.length > 1;
+
   return (
-    <div className='rounded-box flex items-center h-72 mt-4 w-full gap-2 overflow-x-hidden'>
-      <Icon
-        value={{ name: 'GrPrevious', library: 'gr' }}
-        className='text-xl mix-blend-difference absolute left-2 cursor-pointer'
-        onClick={prevImg}
-      />
+    <>
+      {fullImage && (
+        <div className='flex items-center justify-center fixed z-30 top-0 left-0 w-screen h-screen p-20'>
+          <div
+            className='absolute w-screen h-screen bg-black opacity-20 z-10'
+            onClick={() => toggleFullImage(false)}
+          />
 
-      <img src={image[0]} alt='slide' className='object-contain w-full' />
+          <div className='relative flex items-center justify-center z-20 max-w-full h-full'>
+            <Icon
+              value={{ name: 'IoMdClose', library: 'io' }}
+              onClick={() => toggleFullImage(false)}
+              className='absolute top-4 right-4 text-2xl mix-blend-exclusion'
+            />
+            <img
+              src={image[0]}
+              alt='slide'
+              className='object-cover h-full w-full rounded-box border-2 border-primary'
+            />
+          </div>
+        </div>
+      )}
 
-      <Icon
-        value={{ name: 'GrNext', library: 'gr' }}
-        className='text-xl mix-blend-difference absolute right-2 cursor-pointer'
-        onClick={nextImg}
-      />
-    </div>
+      <div className='relative rounded-box bg-gradient-to-bl from-base-100 to-base-300 border border-base-300 flex items-center justify-center h-72 w-full lg:w-3/4 xl:w-2/4 gap-2 overflow-x-hidden'>
+        {haveMoreImages && (
+          <Icon
+            value={{ name: 'GrPrevious', library: 'gr' }}
+            className='text-xl mix-blend-difference absolute left-2 cursor-pointer'
+            onClick={prevImg}
+          />
+        )}
+
+        <img
+          src={image[0]}
+          alt='slide'
+          className='object-contain max-w-11/12 max-h-full border-x border-x-base-300'
+          onClick={() => window.innerWidth > 1000 && toggleFullImage(true)}
+        />
+
+        {haveMoreImages && (
+          <Icon
+            value={{ name: 'GrNext', library: 'gr' }}
+            className='text-xl mix-blend-difference absolute right-2 cursor-pointer'
+            onClick={nextImg}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

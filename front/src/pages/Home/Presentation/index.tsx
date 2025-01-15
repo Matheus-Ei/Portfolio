@@ -1,23 +1,41 @@
 // Library
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 
 // Local
-import developerImage from 'assets/developer.jpg'
+import developerImage from 'assets/developer.jpg';
 import Contacts from './Contacts';
 
 const Presentation = () => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const sequencia = async () => {
+      await controls.start({ opacity: 1, transition: { duration: 1 } });
+
+      await controls.start({
+        borderColor: '#009FDA',
+        borderRadius: 20,
+        transition: { duration: 1, delay: 1 },
+      });
+    };
+
+    sequencia();
+  }, [controls]);
+
   return (
     <div className='flex flex-col md:flex-row items-center justify-center w-full gap-8 lg:gap-16'>
-      <div className='w-full md:w-2/6 xl:w-3/12 select-none flex flex-col items-center gap-y-4'>
+      <div className='relative pb-14 w-full md:w-2/6 xl:w-3/12 select-none flex flex-col items-center gap-y-4'>
         <motion.img
           src={developerImage}
           alt='DeveloperImg'
           className='w-full border-2'
-          animate={{
-            borderColor: ['#00DA4C', '#009FDA'],
-            borderRadius: [300, 20],
-            transition: { duration: 1, delay: 1 },
+          initial={{
+            opacity: 0,
+            borderColor: '#00DA4C',
+            borderRadius: 300,
           }}
+          animate={controls}
         />
 
         <Contacts />

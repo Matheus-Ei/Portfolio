@@ -20,9 +20,9 @@ const Project = ({ id, title, description, logo }: ProjectProps) => {
   return (
     <>
       <motion.div
-        className='relative flex flex-col bg-primary text-primary-content min-w-52 max-w-80 h-96 rounded-box border-2 border-base-300 p-2 select-none cursor-pointer'
+        className='relative flex flex-col bg-gradient-to-br from-base-100 to-base-300 text-base-content min-w-52 max-w-80 h-96 rounded-box border-2 border-base-300 p-2 select-none cursor-pointer'
         whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-        whileTap={{ opacity: 0.9, transition: { duration: 0.1 } }}
+        whileTap={{ opacity: 0.8, transition: { duration: 0.1 } }}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         onClick={() => toggleModal(true)}

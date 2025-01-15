@@ -23,9 +23,9 @@ const ProjectModal = ({ id, showModal, toggleModal }: ProjectModalProps) => {
     <Modal
       isOpen={showModal}
       onClose={() => toggleModal(false)}
-      className='overflow-x-hidden'
+      className='overflow-x-hidden h-screen sm:h-fit h-max-screen h-max-[75vh] p-2'
     >
-      <div className='flex flex-col gap-3'>
+      <div className='flex flex-col gap-4'>
         <Header data={data} />
 
         <Links data={data} />

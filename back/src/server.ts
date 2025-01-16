@@ -31,7 +31,11 @@ export class App {
 
     this.app.use(
       cors({
-        origin: ['https://dev.struct.me', 'http://localhost:3000'],
+        origin: [
+          'https://www.matheus-eickhoff.online',
+          'https://matheus-eickhoff.online',
+          'http://localhost:3000',
+        ],
         methods: 'GET,POST,PUT,PATCH,DELETE,OPTIONS',
         allowedHeaders: 'Authorization, Content-Type',
         credentials: true,

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Icon from 'components/Icon';
 import { CompleteProjectType } from 'services/project/types';
 import useToggle from 'hooks/useToggle';
+import FullImage from './FullImage';
 
 interface SlideShowProps {
   data: CompleteProjectType;
@@ -48,33 +49,19 @@ const SlideShow = ({ data }: SlideShowProps) => {
 
   return (
     <>
-      {fullImage && (
-        <div className='flex items-center justify-center fixed z-30 top-0 left-0 w-screen h-screen p-20'>
-          <div
-            className='absolute w-screen h-screen bg-black opacity-20 z-10'
-            onClick={() => toggleFullImage(false)}
-          />
-
-          <div className='relative flex items-center justify-center z-20 max-w-full h-full'>
-            <Icon
-              value={{ name: 'IoMdClose', library: 'io' }}
-              onClick={() => toggleFullImage(false)}
-              className='absolute top-4 right-4 text-2xl mix-blend-exclusion'
-            />
-            <img
-              src={image[0]}
-              alt='slide'
-              className='object-cover h-full w-full rounded-box border-2 border-primary'
-            />
-          </div>
-        </div>
-      )}
+      <FullImage
+        show={fullImage}
+        src={image[0]}
+        toggleShow={toggleFullImage}
+        setSelected={setSelected}
+        data={data}
+      />
 
       <div className='relative rounded-box bg-gradient-to-bl from-base-100 to-base-300 border border-base-300 flex items-center justify-center h-72 w-full lg:w-3/4 xl:w-2/4 gap-2 overflow-x-hidden'>
         {haveMoreImages && (
           <Icon
             value={{ name: 'GrPrevious', library: 'gr' }}
-            className='text-xl mix-blend-difference absolute left-2 cursor-pointer'
+            className='text-2xl mix-blend-difference absolute left-2 cursor-pointer hover:text-primary'
             onClick={prevImg}
           />
         )}
@@ -89,7 +76,7 @@ const SlideShow = ({ data }: SlideShowProps) => {
         {haveMoreImages && (
           <Icon
             value={{ name: 'GrNext', library: 'gr' }}
-            className='text-xl mix-blend-difference absolute right-2 cursor-pointer'
+            className='text-2xl mix-blend-difference absolute right-2 cursor-pointer hover:text-primary'
             onClick={nextImg}
           />
         )}

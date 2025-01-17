@@ -8,7 +8,7 @@ interface HeaderProps {
 
 const Header = ({ data }: HeaderProps) => {
   return (
-    <div className='flex items-center gap-x-10'>
+    <div className='flex flex-col sm:flex-row sm:items-center gap-x-10'>
       <div className='w-52 h-52'>
         <img
           src={data?.logo}
@@ -17,7 +17,7 @@ const Header = ({ data }: HeaderProps) => {
         />
       </div>
 
-      <div className='flex flex-col w-3/5 gap-y-2 select-text'>
+      <div className='flex flex-col w-full sm:w-3/5 gap-y-2 select-text'>
         <h1 className='text-4xl font-bold'>{data?.title}</h1>
 
         <p>{data?.description}</p>

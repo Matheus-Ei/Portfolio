@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 // Local
 import Icon from 'components/Icon';
 import useToggle from 'hooks/useToggle';
-import { TechnologyType } from 'services/technologies/types';
+import { TechnologyType } from 'services/technology/types';
 import HoverName from './HoverName';
 
 interface TechProps {
@@ -13,7 +13,7 @@ interface TechProps {
 
 const Tech = ({ tech }: TechProps) => {
   const [showName, toggleName] = useToggle(false);
-  const techIcon = tech.logo.split(' ');
+  const techIcon = tech.icon.split(' ');
 
   return (
     <div className='relative flex flex-col items-center pb-6'>
@@ -25,7 +25,7 @@ const Tech = ({ tech }: TechProps) => {
         <Icon
           value={{ name: techIcon[0], library: techIcon[1] }}
           className='text-4xl hover:text-primary'
-          key={tech.name}
+          key={tech.title}
         />
       </motion.div>
 

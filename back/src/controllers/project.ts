@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 
 // Models
 import ProjectModel from '../models/project';
-import TechnologiesModel from '../models/technologies';
-import ImageModel from '../models/image';
-import ProjectTechnologiesModel from '../models/projectTechnologies';
+import TechnologyModel from '../models/technology';
+import ProjectImageModel from '../models/projectImage';
+import ProjectTechnologyModel from '../models/projectTechnology';
 import operations from '../database/operations';
 
 class ProjectController {
@@ -30,25 +30,28 @@ class ProjectController {
 
       const project = await ProjectModel.findByPk(id);
 
-      const images = await ImageModel.findAll({
+      const images = await ProjectImageModel.findAll({
         where: { project_id: id },
       });
 
-      const technologies = await operations.query(`
+      const technologies = await operations.query(
+        `
         SELECT 
-          technologies.name, 
-          technologies.description, 
-          technologies.logo
-        FROM project_technologies
-        JOIN technologies 
-          ON technologies.id = project_technologies.tech_id
-        WHERE project_technologies.project_id = ${id};
-      `);
+          technology.icon,
+          technology.title, 
+          technology.description
+        FROM project_technology
+        JOIN technology 
+          ON technology.id = project_technology.technology_id
+        WHERE project_technology.project_id = $1;
+      `,
+        [id],
+      );
 
       project?.setDataValue('technologies', technologies[0]);
       project?.setDataValue(
         'images',
-        images.map((image) => image.data),
+        images.map((image) => image.src),
       );
 
       res
@@ -84,7 +87,7 @@ class ProjectController {
 
     dotenv.config();
 
-    if (password != process.env.PASSWORD) {
+    if (password != process.env.AUTH_PASSWORD) {
       res.status(401).send({ message: 'Password incorrect' });
       return;
     }
@@ -101,16 +104,16 @@ class ProjectController {
       });
 
       images.forEach(async (image: string) => {
-        await ImageModel.create({ data: image, project_id: project.id });
+        await ProjectImageModel.create({ data: image, project_id: project.id });
       });
 
       technologies.forEach(async (lang: string) => {
-        const tech = await TechnologiesModel.findOne({
-          where: { name: lang },
+        const tech = await TechnologyModel.findOne({
+          where: { title: lang },
         });
 
-        await ProjectTechnologiesModel.create({
-          tech_id: tech?.id,
+        await ProjectTechnologyModel.create({
+          technology_id: tech?.id,
           project_id: project.id,
         });
       });

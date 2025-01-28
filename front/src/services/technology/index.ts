@@ -6,10 +6,10 @@ interface InputTechType extends TechnologyType {
   password: string;
 }
 
-class TechnologiesService {
+class TechnologyService {
   static async create(data: InputTechType) {
     try {
-      await Request.post('tech', data);
+      await Request.post('technology', data);
       return true;
     } catch (error) {
       return error;
@@ -18,7 +18,7 @@ class TechnologiesService {
 
   static async getAll() {
     try {
-      const response = await Request.get('tech');
+      const response = await Request.get('technology');
       const res: TechnologyType[] = response.data;
       return res;
     } catch {
@@ -27,4 +27,4 @@ class TechnologiesService {
   }
 }
 
-export default TechnologiesService;
+export default TechnologyService;

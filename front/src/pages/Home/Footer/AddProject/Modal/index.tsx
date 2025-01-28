@@ -6,7 +6,7 @@ import { useState } from 'react';
 import ImageUploader from 'components/ImageUploader';
 import Modal from 'components/Modal';
 import MultiSelection from 'components/MultiSelection';
-import TechnologiesService from 'services/technologies';
+import TechnologyService from 'services/technology';
 import ProjectService from 'services/project';
 import { CreateProjectContext } from './context';
 import { ErrorType } from 'types/global';
@@ -63,7 +63,7 @@ const AddProjectModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
 
   // Get the technologies in the database
   const getTechOptions = async () => {
-    return await TechnologiesService.getAll();
+    return await TechnologyService.getAll();
   };
   const { data: techOptions } = useQuery('technologies-get', getTechOptions);
 
@@ -90,7 +90,7 @@ const AddProjectModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
       <Modal
         isOpen={showModal}
         onClose={() => toggleModal(false)}
-        className='overflow-x-hidden md:w-[90vw] lg:w-[90vw] xl:w-[80vw] 2xl:w-[60vw]'
+        className='overflow-x-hidden sm:h-fit p-2'
       >
         <div className='flex flex-col items-center w-full h-full gap-y-6'>
           <h1 className='text-3xl font-bold'>NEW PROJECT</h1>
@@ -106,7 +106,7 @@ const AddProjectModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
             <MultiSelection
               selected={technologies}
               onChange={(e) => setTechnologies(e)}
-              options={techOptions?.map((tech) => tech.name) || []}
+              options={techOptions?.map((tech) => tech.title) || []}
             />
 
             <Links />

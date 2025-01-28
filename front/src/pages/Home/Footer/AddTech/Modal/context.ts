@@ -7,7 +7,6 @@ import { ErrorType, SetStateType } from 'types/global';
 interface AddTechContextType {
   logo: { value: string; set: SetStateType<string> };
   name: { value: string; set: SetStateType<string> };
-  description: { value: string; set: SetStateType<string> };
   password: { value: string; set: SetStateType<string> };
 
   error: { value: ErrorType; set: SetStateType<ErrorType> };

@@ -1,6 +1,6 @@
 // Local
 import { CompleteProjectType } from 'services/project/types';
-import { TechnologyType } from 'services/technologies/types';
+import { TechnologyType } from 'services/technology/types';
 import Tech from './Tech';
 
 interface TechnologiesProps {

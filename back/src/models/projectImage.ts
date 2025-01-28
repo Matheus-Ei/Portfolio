@@ -4,38 +4,45 @@ import { DataTypes, Model } from 'sequelize';
 // Local
 import connection from '../database/connection';
 import ProjectModel from './project';
-import TechnologiesModel from './technologies';
 
-class ProjectTechnologiesModel extends Model {
+class ProjectImageModel extends Model {
+  public id!: number;
+
+  public src!: string;
+  public alt?: string;
+
   public project_id!: number;
-  public language_id!: number;
 }
 
-ProjectTechnologiesModel.init(
+ProjectImageModel.init(
   {
-    project_id: {
+    id: {
       type: DataTypes.INTEGER,
+      autoIncrement: true,
       primaryKey: true,
-      references: {
-        model: ProjectModel,
-        key: 'id',
-      },
     },
 
-    tech_id: {
+    src: {
+      type: DataTypes.TEXT,
+    },
+
+    alt: {
+      type: DataTypes.STRING(255),
+    },
+
+    project_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
       references: {
-        model: TechnologiesModel,
+        model: ProjectModel,
         key: 'id',
       },
     },
   },
   {
     sequelize: connection,
-    tableName: 'project_technologies',
+    tableName: 'project_image',
     timestamps: false,
   },
 );
 
-export default ProjectTechnologiesModel;
+export default ProjectImageModel;

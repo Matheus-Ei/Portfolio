@@ -31,7 +31,7 @@ class ProjectService {
     try {
       await Request.post('project', data);
       return true;
-    } catch (error) {
+    } catch (error: any) {
       return error?.message;
     }
   }

@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 // Local
 import Modal from 'components/Modal';
-import TechnologiesService from 'services/technologies';
+import TechnologyService from 'services/technology';
 import { AddTechContext } from './context';
 import { ErrorType } from 'types/global';
 import Message from 'components/Message';
@@ -17,7 +17,6 @@ interface AddProjectModalProps {
 
 const AddTechModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
   const [name, setName] = useState<string>('Name');
-  const [description, setDescription] = useState<string>('Description');
   const [password, setPassword] = useState<string>('Password');
 
   const [logo, setLogo] = useState<string>('FaCode fa');
@@ -28,10 +27,9 @@ const AddTechModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
   });
 
   const addTech = async () => {
-    const response = await TechnologiesService.create({
-      logo,
-      name,
-      description,
+    const response = await TechnologyService.create({
+      icon: logo,
+      title: name,
       password,
     });
 
@@ -45,7 +43,6 @@ const AddTechModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
   const contextValue = {
     logo: { value: logo, set: setLogo },
     name: { value: name, set: setName },
-    description: { value: description, set: setDescription },
     password: { value: password, set: setPassword },
 
     error: { value: error, set: setError },
@@ -57,7 +54,7 @@ const AddTechModal = ({ showModal, toggleModal }: AddProjectModalProps) => {
       <Modal
         isOpen={showModal}
         onClose={() => toggleModal(false)}
-        className='overflow-x-hidden md:w-[50vw] lg:w-[40vw] xl:w-[30vw]'
+        className='overflow-x-hidden md:w-[50vw] lg:w-[40vw] xl:w-[30vw] sm:h-fit p-2'
       >
         <div className='flex flex-col items-center w-full h-full gap-y-6'>
           <h1 className='text-3xl font-bold'>ADD TECHNOLOGY</h1>

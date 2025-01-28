@@ -4,15 +4,15 @@ import { DataTypes, Model } from 'sequelize';
 // Local
 import connection from '../database/connection';
 
-class TechnologiesModel extends Model {
+class TechnologyModel extends Model {
   public id!: number;
 
-  public name!: string;
-  public description!: string;
-  public logo!: string;
+  public icon!: string;
+  public title!: string;
+  public description?: string;
 }
 
-TechnologiesModel.init(
+TechnologyModel.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -20,23 +20,23 @@ TechnologiesModel.init(
       primaryKey: true,
     },
 
-    name: {
+    icon: {
+      type: DataTypes.STRING(100),
+    },
+
+    title: {
       type: DataTypes.STRING(255),
     },
 
     description: {
       type: DataTypes.TEXT,
     },
-
-    logo: {
-      type: DataTypes.TEXT,
-    },
   },
   {
     sequelize: connection,
-    tableName: 'technologies',
+    tableName: 'technology',
     timestamps: false,
   },
 );
 
-export default TechnologiesModel;
+export default TechnologyModel;

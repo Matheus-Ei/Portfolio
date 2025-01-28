@@ -2,7 +2,7 @@
 import { Router } from 'express';
 
 // Local
-import technologiesController from '../controllers/technologies';
+import technologyController from '../controllers/technology';
 
 class TechnologiesRoute {
   public router: Router;
@@ -13,8 +13,8 @@ class TechnologiesRoute {
   }
 
   private init() {
-    this.router.post('/', technologiesController.add);
-    this.router.get('/', technologiesController.getAll);
+    this.router.post('/', technologyController.add);
+    this.router.get('/', technologyController.getAll);
   }
 }
 

@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import Card from '../Card';
 import CloseButton from './CloseButton';
 import Background from './Background';
+import { AnimatePresence } from 'framer-motion';
 
 interface ModalProps {
   children: JSX.Element;
@@ -20,18 +21,22 @@ const defaultCss = clsx(
 );
 
 const Modal = ({ children, isOpen, onClose, className }: ModalProps) => {
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
   const css = twMerge(defaultCss, className);
 
   return (
-    <Background onClick={onClose}>
-      <Card className='border-base-300 border-2'>
-        <div className={css}>
-          <CloseButton onClick={onClose} />
-          {children}
-        </div>
-      </Card>
-    </Background>
+    <AnimatePresence>
+      {isOpen && (
+        <Background onClick={onClose}>
+          <Card className='border-base-300 border-2'>
+            <div className={css}>
+              <CloseButton onClick={onClose} />
+              {children}
+            </div>
+          </Card>
+        </Background>
+      )}
+    </AnimatePresence>
   );
 };
 

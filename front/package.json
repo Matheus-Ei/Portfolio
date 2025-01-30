@@ -26,6 +26,7 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.15.0",
     "tailwind-merge": "^2.5.5",
     "use-debounce": "^10.0.4",
     "uuid": "^11.0.3",

@@ -6,6 +6,7 @@ import Project from './Project';
 import { ProjectType } from 'services/project/types';
 import ProjectService from 'services/project';
 import Icon from 'components/Icon';
+import { PuffLoader } from 'react-spinners';
 
 const Projects = () => {
   const getAllProjects = async () => await ProjectService.getAll();
@@ -22,7 +23,14 @@ const Projects = () => {
   );
 
   const renderProject = () => {
-    if (!data || !data.length)
+    if (!data)
+      return (
+        <div className='flex justify-center gap-4 h-fit w-full mt-4'>
+          <PuffLoader color='white' size={100} />
+        </div>
+      );
+
+    if (!data.length)
       return (
         <div className='flex justify-center gap-4 h-64 w-full mt-4'>
           <Icon

@@ -28,25 +28,37 @@ class ProjectController {
 
       const rawProject = await query(
         `
-        SELECT 
-          p.id,
-          MAX(p.logo) AS logo,
-          MAX(p.title) AS title,
-          MAX(p.description) AS description,
-          MAX(p.host_link) AS host_link,
-          MAX(p.code_link) AS code_link,
-          MAX(p.start_date) AS start_date,
-          MAX(p.end_date) AS end_date,
-          JSONB_AGG(
-            JSONB_BUILD_OBJECT('title', t.title, 'icon', t.icon)
-          ) FILTER (WHERE t.title IS NOT NULL) AS technologies,
-          ARRAY_AGG(pi.src) FILTER (WHERE pi.src IS NOT NULL) AS images
-        FROM project AS p
-        LEFT JOIN project_image AS pi ON pi.project_id = p.id
-        LEFT JOIN project_technology AS pt ON pt.project_id = p.id
-        LEFT JOIN technology AS t ON pt.technology_id = t.id
-        WHERE p.id = $1
-        GROUP BY p.id
+          WITH project_images AS (
+              SELECT 
+                  project_id, 
+                  ARRAY_AGG(src) AS images
+              FROM project_image
+              GROUP BY project_id
+          ), 
+          project_technologies AS (
+              SELECT 
+                  pt.project_id, 
+                  JSONB_AGG(DISTINCT JSONB_BUILD_OBJECT('title', t.title, 'icon', t.icon)) AS technologies
+              FROM project_technology pt
+              JOIN technology t ON pt.technology_id = t.id
+              GROUP BY pt.project_id
+          )
+          SELECT 
+              p.id,
+              MAX(p.logo) AS logo,
+              MAX(p.title) AS title,
+              MAX(p.description) AS description,
+              MAX(p.host_link) AS host_link,
+              MAX(p.code_link) AS code_link,
+              MAX(p.start_date) AS start_date,
+              MAX(p.end_date) AS end_date,
+              COALESCE(pt.technologies, '[]'::jsonb) AS technologies,
+              COALESCE(pi.images, ARRAY[]::text[]) AS images
+          FROM project p
+          LEFT JOIN project_images pi ON pi.project_id = p.id
+          LEFT JOIN project_technologies pt ON pt.project_id = p.id
+          WHERE p.id = $1
+          GROUP BY p.id, pi.images, pt.technologies;
         `,
         [id],
       );
@@ -110,7 +122,7 @@ class ProjectController {
             SELECT UNNEST($1::TEXT[]), $2::INTEGER;
           `,
           [images, projectId],
-        ); 
+        );
 
       // Technologies
       if (technologies.length !== 0)

@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS project_technology (
   PRIMARY KEY (project_id, technology_id)
 );
 
-CREATE TABLE IF NOT EXISTS competence (
+CREATE TABLE IF NOT EXISTS skill (
   id SERIAL PRIMARY KEY,
 
   icon VARCHAR(100) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS competence (
   description TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS competence_certificate (
+CREATE TABLE IF NOT EXISTS skill_certificate (
   id SERIAL PRIMARY KEY,
 
   title VARCHAR(255) NOT NULL,

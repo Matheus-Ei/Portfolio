@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
 // Local
-import pool, { query } from '../database/connection';
+import { query } from '../database/connection';
 
 class ProjectController {
   public async getAll(req: Request, res: Response) {
@@ -103,14 +103,14 @@ class ProjectController {
       const projectId = project[0].id;
 
       // Images
-      /* if (images.length !== 0)
+      if (images.length !== 0)
         await query(
           `
             INSERT INTO project_image(src, project_id)
-            SELECT unnest($1::TEXT[]), $2::INTEGER;
+            SELECT UNNEST($1::TEXT[]), $2::INTEGER;
           `,
           [images, projectId],
-        ); */
+        ); 
 
       // Technologies
       if (technologies.length !== 0)

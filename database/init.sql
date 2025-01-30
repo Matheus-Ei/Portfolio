@@ -18,9 +18,7 @@ CREATE TABLE IF NOT EXISTS project_image (
   src TEXT NOT NULL,
   alt VARCHAR(255),
 
-  project_id INTEGER REFERENCES project(id) ON DELETE CASCADE,
-
-  UNIQUE(project_id, src)
+  project_id INTEGER REFERENCES project(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS technology (

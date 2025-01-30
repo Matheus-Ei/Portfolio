@@ -26,7 +26,6 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000,
 });
 
-// Função para executar queries
 export const query = async (statement: string, values?: unknown[]) => {
   const client = await pool.connect();
   try {

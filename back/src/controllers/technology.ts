@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
 // Local
-import TechnologyModel from '../models/technology';
+import { query } from '../database/connection';
 
 class TechnologyController {
   public async add(req: Request, res: Response) {
@@ -23,15 +23,16 @@ class TechnologyController {
     }
 
     try {
-      const tech = await TechnologyModel.create({
-        icon,
-        title,
-        description: 'Not necessary',
-      });
+      await query(
+        `
+        INSERT INTO technology(icon, title)
+        VALUES ($1, $2)
+      `,
+        [icon, title],
+      );
 
       res.status(201).send({
         message: 'Technology created successfuly',
-        data: tech,
       });
     } catch (error) {
       res.status(500).send({ message: 'Error creating a technology', error });
@@ -40,7 +41,10 @@ class TechnologyController {
 
   public async getAll(req: Request, res: Response) {
     try {
-      const tech = await TechnologyModel.findAll();
+      const tech = await query(`
+        SELECT *
+        FROM technology
+      `);
 
       res.status(200).send({
         message: 'Here are all technologies',

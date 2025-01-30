@@ -2,17 +2,15 @@
 import { Request, Response } from 'express';
 import dotenv from 'dotenv';
 
-// Models
-import ProjectModel from '../models/project';
-import TechnologyModel from '../models/technology';
-import ProjectImageModel from '../models/projectImage';
-import ProjectTechnologyModel from '../models/projectTechnology';
-import operations from '../database/operations';
+// Local
+import pool, { query } from '../database/connection';
 
 class ProjectController {
   public async getAll(req: Request, res: Response) {
     try {
-      const projects = await ProjectModel.findAll();
+      const projects = await query(`
+        SELECT * FROM project
+      `);
 
       res
         .status(200)
@@ -28,31 +26,31 @@ class ProjectController {
     try {
       const { id } = req.params;
 
-      const project = await ProjectModel.findByPk(id);
-
-      const images = await ProjectImageModel.findAll({
-        where: { project_id: id },
-      });
-
-      const technologies = await operations.query(
+      const rawProject = await query(
         `
         SELECT 
-          technology.icon,
-          technology.title, 
-          technology.description
-        FROM project_technology
-        JOIN technology 
-          ON technology.id = project_technology.technology_id
-        WHERE project_technology.project_id = $1;
-      `,
+          p.id,
+          MAX(p.logo) AS logo,
+          MAX(p.title) AS title,
+          MAX(p.description) AS description,
+          MAX(p.host_link) AS host_link,
+          MAX(p.code_link) AS code_link,
+          MAX(p.start_date) AS start_date,
+          MAX(p.end_date) AS end_date,
+          JSONB_AGG(
+            JSONB_BUILD_OBJECT('title', t.title, 'icon', t.icon)
+          ) FILTER (WHERE t.title IS NOT NULL) AS technologies,
+          ARRAY_AGG(pi.src) FILTER (WHERE pi.src IS NOT NULL) AS images
+        FROM project AS p
+        LEFT JOIN project_image AS pi ON pi.project_id = p.id
+        LEFT JOIN project_technology AS pt ON pt.project_id = p.id
+        LEFT JOIN technology AS t ON pt.technology_id = t.id
+        WHERE p.id = $1
+        GROUP BY p.id
+        `,
         [id],
       );
-
-      project?.setDataValue('technologies', technologies[0]);
-      project?.setDataValue(
-        'images',
-        images.map((image) => image.src),
-      );
+      const project = rawProject[0];
 
       res
         .status(200)
@@ -78,7 +76,7 @@ class ProjectController {
       end_date = null,
     } = req.body;
 
-    if (!logo || !title || !description || !start_date) {
+    if (!logo || !title || !description) {
       res
         .status(400)
         .send({ message: "Required fields in the body weren't sent" });
@@ -93,34 +91,38 @@ class ProjectController {
     }
 
     try {
-      const project = await ProjectModel.create({
-        logo,
-        title,
-        description,
-        host_link,
-        code_link,
-        start_date,
-        end_date,
-      });
+      const project = await query(
+        `
+        INSERT INTO project (logo, title, description, host_link, code_link, start_date, end_date) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        RETURNING id
+      `,
+        [logo, title, description, host_link, code_link, start_date, end_date],
+      );
 
-      images.forEach(async (image: string) => {
-        await ProjectImageModel.create({ data: image, project_id: project.id });
-      });
+      const projectId = project[0].id;
 
-      technologies.forEach(async (lang: string) => {
-        const tech = await TechnologyModel.findOne({
-          where: { title: lang },
-        });
+      // Images
+      /* if (images.length !== 0)
+        await query(
+          `
+            INSERT INTO project_image(src, project_id)
+            SELECT unnest($1::TEXT[]), $2::INTEGER;
+          `,
+          [images, projectId],
+        ); */
 
-        await ProjectTechnologyModel.create({
-          technology_id: tech?.id,
-          project_id: project.id,
-        });
-      });
+      // Technologies
+      if (technologies.length !== 0)
+        await query(
+          `
+            INSERT INTO project_technology(project_id, technology_id)
+            SELECT $1::INTEGER, id FROM technology WHERE title = ANY($2::TEXT[]);
+          `,
+          [projectId as number, technologies as string[]],
+        );
 
-      res
-        .status(201)
-        .send({ message: 'Project created successfuly', data: project });
+      res.status(201).send({ message: 'Project created successfuly' });
     } catch (error) {
       res.status(500).send({ message: 'Error creating the project', error });
     }

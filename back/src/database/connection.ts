@@ -1,51 +1,40 @@
 // Libraries
-import { Sequelize } from 'sequelize';
+import pg from 'pg';
 import dotenv from 'dotenv';
 
-interface CredentialsType {
-  type: string | undefined;
-  database: string | undefined;
-  host: string | undefined;
-  port: number | undefined;
-  user: string | undefined;
-  password: string | undefined;
-}
+const { Pool } = pg;
 
 dotenv.config();
 
-const type = process.env.DATABASE_TYPE;
 const database = process.env.DATABASE_NAME;
 const host = process.env.DATABASE_HOST;
 const port = Number(process.env.DATABASE_PORT);
 const user = process.env.DATABASE_USER;
 const password = process.env.DATABASE_PASSWORD;
 
-const credentials: CredentialsType = {
-  type,
-  database,
+const pool = new Pool({
   host,
   port,
   user,
   password,
+  database,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+  max: 10,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
+
+// Função para executar queries
+export const query = async (statement: string, values?: unknown[]) => {
+  const client = await pool.connect();
+  try {
+    const response = await client.query(statement, values);
+    return response.rows;
+  } finally {
+    client.release();
+  }
 };
 
-const connection = new Sequelize(
-  credentials.database as string,
-  credentials.user as string,
-  credentials.password as string,
-  {
-    host: credentials.host,
-    dialect: credentials.type as 'postgres',
-    port: credentials.port,
-    logging: false,
-
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    },
-  },
-);
-
-export default connection;
+export default pool;

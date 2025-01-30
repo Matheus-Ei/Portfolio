@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS project (
   id SERIAL PRIMARY KEY,
 
   logo TEXT NOT NULL,
-  title VARCHAR(255) NOT NULL,
+  title VARCHAR(255) NOT NULL UNIQUE,
   description TEXT NOT NULL,
 
   host_link VARCHAR(500),
@@ -18,22 +18,23 @@ CREATE TABLE IF NOT EXISTS project_image (
   src TEXT NOT NULL,
   alt VARCHAR(255),
 
-  project_id INTEGER REFERENCES project(id) ON DELETE CASCADE
+  project_id INTEGER REFERENCES project(id) ON DELETE CASCADE,
+
+  UNIQUE(project_id, src)
 );
 
 CREATE TABLE IF NOT EXISTS technology (
   id SERIAL PRIMARY KEY,
 
   icon VARCHAR(100) NOT NULL,
-  title VARCHAR(255) NOT NULL UNIQUE,
-  description TEXT
+  title VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS project_technology (
   project_id INTEGER REFERENCES project(id) ON DELETE CASCADE,
   technology_id INTEGER REFERENCES technology(id) ON DELETE CASCADE,
 
-  PRIMARY KEY (project_id, technology_id),
+  PRIMARY KEY (project_id, technology_id)
 );
 
 CREATE TABLE IF NOT EXISTS competence (
@@ -53,5 +54,4 @@ CREATE TABLE IF NOT EXISTS competence_certificate (
   data TEXT NOT NULL,
 
   competence_id INTEGER REFERENCES competence(id) ON DELETE CASCADE
-)
-
+);

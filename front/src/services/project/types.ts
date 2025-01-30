@@ -1,5 +1,5 @@
 // Local
-import { TechnologyType } from 'services/technologies/types';
+import { TechnologyType } from 'services/technology/types';
 
 export interface ProjectType {
   id?: number;

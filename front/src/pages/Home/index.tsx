@@ -3,7 +3,7 @@ import DynamicBackground from 'components/DynamicBackground';
 import Presentation from './Presentation';
 import Projects from './Projects';
 import Footer from './Footer';
-import Skills from './Skills';
+// import Skills from './Skills';
 
 const Home = () => {
   return (
@@ -14,12 +14,12 @@ const Home = () => {
         <Presentation />
 
         <Projects />
-        <Skills />
 
         <Footer />
       </div>
     </div>
   );
+  // <Skills />
 };
 
 export default Home;

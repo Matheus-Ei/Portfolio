@@ -1,5 +1,6 @@
 // Library
 import { useQuery } from 'react-query';
+import { PuffLoader } from 'react-spinners';
 
 // Local
 import Modal from 'components/Modal';
@@ -25,15 +26,25 @@ const ProjectModal = ({ id, showModal, toggleModal }: ProjectModalProps) => {
       onClose={() => toggleModal(false)}
       className='overflow-x-hidden h-screen sm:h-fit h-max-screen h-max-[75vh] p-2'
     >
-      <div className='flex flex-col gap-4'>
-        <Header data={data} />
+      <>
+        {!data && (
+          <div className='flex justify-center items-center h-64 w-full'>
+            <PuffLoader color='white' size={100} />
+          </div>
+        )}
 
-        <Links data={data} />
+        {data && (
+          <div className='flex flex-col gap-4 w-3/4'>
+            <Header data={data} />
 
-        <Technologies data={data} />
+            <Links data={data} />
 
-        <SlideShow data={data} />
-      </div>
+            <Technologies data={data} />
+
+            <SlideShow data={data} />
+          </div>
+        )}
+      </>
     </Modal>
   );
 };

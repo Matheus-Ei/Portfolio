@@ -25,7 +25,7 @@ const Projects = () => {
   const renderProject = () => {
     if (!data)
       return (
-        <div className='flex justify-center gap-4 h-fit w-full mt-4'>
+        <div className='flex justify-center gap-4 h-64 w-full mt-4'>
           <PuffLoader color='white' size={100} />
         </div>
       );

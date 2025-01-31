@@ -51,5 +51,5 @@ CREATE TABLE IF NOT EXISTS skill_certificate (
   duration INTEGER NOT NULL CHECK (duration > 0),
   data TEXT NOT NULL,
 
-  competence_id INTEGER REFERENCES competence(id) ON DELETE CASCADE
+  skill_id INTEGER REFERENCES skill(id) ON DELETE CASCADE
 );
